@@ -1,0 +1,21 @@
+# IDE
+.idea/
+*.iml
+
+# Mac
+.DS_Store
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+
+# Compiled
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
