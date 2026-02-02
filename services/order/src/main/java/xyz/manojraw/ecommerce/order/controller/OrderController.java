@@ -2,12 +2,11 @@ package xyz.manojraw.ecommerce.order.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.manojraw.ecommerce.order.dto.OrderRequestDto;
+import xyz.manojraw.ecommerce.order.dto.OrderResponseDto;
 import xyz.manojraw.ecommerce.order.service.OrderService;
 
 @RestController
@@ -18,7 +17,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Integer> save(@Valid @RequestBody OrderRequestDto requestDto) {
+    public ResponseEntity<Long> save(@Valid @RequestBody OrderRequestDto requestDto) {
         return ResponseEntity.ok(orderService.save(requestDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<OrderResponseDto>> findAll(@RequestParam(required = false, defaultValue = "0") int pageNo, @RequestParam(required = false, defaultValue = "10") int size) {
+        return ResponseEntity.ok(orderService.findAll(pageNo, size));
     }
 }
