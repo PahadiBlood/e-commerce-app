@@ -8,4 +8,5 @@ import xyz.manojraw.ecommerce.order.model.OrderLine;
 public interface OrderLineMapper {
 
     OrderLine toEntity(OrderLineRequestDto requestDto);
+    OorderLineResponseDto toDto(OrderLine orderLine);
 }
