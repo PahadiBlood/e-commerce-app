@@ -22,7 +22,12 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<OrderResponseDto>> findAll(@RequestParam(required = false, defaultValue = "0") int pageNo, @RequestParam(required = false, defaultValue = "10") int size) {
-        return ResponseEntity.ok(orderService.findAll(pageNo, size));
+    public ResponseEntity<Page<OrderResponseDto>> getAll(@RequestParam(required = false, defaultValue = "0") int pageNo, @RequestParam(required = false, defaultValue = "10") int size) {
+        return ResponseEntity.ok(orderService.getAll(pageNo, size));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponseDto> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getById(id));
     }
 }

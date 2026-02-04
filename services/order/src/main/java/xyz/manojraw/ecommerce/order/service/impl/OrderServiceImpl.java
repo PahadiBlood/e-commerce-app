@@ -17,6 +17,7 @@ import xyz.manojraw.ecommerce.order.kafka.OrderConfirmation;
 import xyz.manojraw.ecommerce.order.kafka.OrderProducer;
 import xyz.manojraw.ecommerce.order.mapper.OrderMapper;
 import xyz.manojraw.ecommerce.order.repository.OrderRepository;
+import xyz.manojraw.ecommerce.order.service.OrderLineService;
 import xyz.manojraw.ecommerce.order.service.OrderService;
 
 @RequiredArgsConstructor
@@ -65,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderResponseDto> findAll(int pageNo, int size) {
+    public Page<OrderResponseDto> getAll(int pageNo, int size) {
         if (pageNo < 2) pageNo = 0;
         if (size < 1) size = 10;
 
@@ -75,6 +76,14 @@ public class OrderServiceImpl implements OrderService {
         var orderDtos = orderRepository.findAll(pageable).stream()
                 .map(mapper::toDto)
                 .toList();
-        return new PageImpl<>(orderDtos,pageable, orders.getTotalElements());
+        return new PageImpl<>(orderDtos, pageable, orders.getTotalElements());
+    }
+
+    @Override
+    public OrderResponseDto getById(Long id) {
+        return orderRepository
+                .findById(id)
+                .map(mapper::toDto)
+                .orElseThrow(() -> new ApiException("Order not found", "NOT_FOUND", HttpStatus.NOT_FOUND));
     }
 }
