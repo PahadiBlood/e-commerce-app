@@ -1,27 +1,20 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/order
+    url: jdbc:postgresql:/localhost:5432/payment
     username: manoj
     password: manoj
-    driver-class-name: org.postgresql.Driver
+    dirver-class-name: org.postgres.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  application:
-    config:
-      customer-url: http://localhost:8084/api/v1/customers
-      product-url: http://localhost:8085/api/v1/products
-      payment-url: http://localhost:8087/api/v1/payments
-
   kafka:
     producer:
       bootstrap-service: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: appConfiguration:xyz.manojraw.ecommerce.order
-
+        spring.json.type.mapping: appConfiguration.Configuration:xyz.manojraw.ecommerce.payment.notification
 server:
-  port: 8086
+  port: 8087

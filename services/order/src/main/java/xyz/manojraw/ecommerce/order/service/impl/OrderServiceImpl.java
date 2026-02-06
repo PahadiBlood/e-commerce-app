@@ -9,10 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import xyz.manojraw.ecommerce.exception.ApiException;
 import xyz.manojraw.ecommerce.order.client.CustomerClient;
+import xyz.manojraw.ecommerce.order.client.PaymentClient;
 import xyz.manojraw.ecommerce.order.client.ProductClient;
 import xyz.manojraw.ecommerce.order.dto.OrderLineRequestDto;
 import xyz.manojraw.ecommerce.order.dto.OrderRequestDto;
 import xyz.manojraw.ecommerce.order.dto.OrderResponseDto;
+import xyz.manojraw.ecommerce.order.dto.payment.PaymentRequestDto;
 import xyz.manojraw.ecommerce.order.kafka.OrderConfirmation;
 import xyz.manojraw.ecommerce.order.kafka.OrderProducer;
 import xyz.manojraw.ecommerce.order.mapper.OrderMapper;
@@ -30,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     @Override
     public Long save(OrderRequestDto requestDto) {
@@ -52,7 +55,14 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //start payment process
-        //todo payment process
+        var paymentRequestDto = new PaymentRequestDto(
+                requestDto.amount(),
+                requestDto.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequestDto);
 
         //send order confirmation notification(kafka)
         orderProducer.sendOrderConfirmation(new OrderConfirmation(
