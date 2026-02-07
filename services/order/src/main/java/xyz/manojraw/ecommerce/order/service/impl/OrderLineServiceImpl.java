@@ -26,6 +26,6 @@ public class OrderLineServiceImpl implements OrderLineService {
     public List<OrderLineResponseDto> getAllByOrderId(Long orderId) {
         return orderLineRepository.findAllByOrderId(orderId)
                 .stream()
-                .map(mapper::toDto);
+                .map(mapper::toDto).toList();
     }
 }

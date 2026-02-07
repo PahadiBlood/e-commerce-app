@@ -8,7 +8,7 @@ import xyz.manojraw.ecommerce.order.dto.customer.CustomerResponseDto;
 import java.util.Optional;
 
 @FeignClient(
-        name = "customer-service", url = "${application.config.customer-url}"
+        name = "customer-service", url = "${spring.application.config.customer-url}"
 )
 public interface CustomerClient {
 
