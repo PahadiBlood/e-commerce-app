@@ -10,21 +10,21 @@ This project is currently under active development to demonstrate modern microse
 ## 🗺️ Development Roadmap
 
 ### ✅ Phase 1: Core Infrastructure (Completed)
-- Config Server (Port 8888)
-- Discovery Service - Eureka (Port 8761)
-- Customer Service (Port 8090)
+- Config Server
+- Discovery Service - Eureka
+- Customer Service
 
-### 🚧 Phase 2: Business Services (In Progress)
-- Product Service (Port 8091)
-- Order Service (Port 8092)
-- Payment Service (Port 8093)
+### ✅ Phase 2: Business Services (Completed)
+- Product Service
+- Order Service
+- Payment Service
 
-### 📋 Phase 3: Gateway & Communication (Planned)
-- API Gateway (Port 8080)
+### ✅ Phase 3: Gateway & Communication (Completed)
+- API Gateway
 - Message Broker (Kafka/RabbitMQ)
-- Notification Service (Port 8094)
+- Notification Service
 
-### 📋 Phase 4: Observability & Resilience (Planned)
+### 🚧 Phase 4: Observability & Resilience (In Progress)
 - Distributed Tracing (Zipkin)
 - Circuit Breaker (Resilience4j)
 - Centralized Logging
@@ -45,6 +45,7 @@ This project is currently under active development to demonstrate modern microse
 - Spring Boot 4.0.0
 - Spring Cloud (Config, Eureka, Gateway)
 - MongoDB
+- PostgreSql
 - Docker & Docker Compose
 
 ---
