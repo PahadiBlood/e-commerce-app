@@ -13,14 +13,15 @@ import java.time.Instant;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
-@Document
+@Document(collection = "notifications")
 public class Notification {
 
     @Id
-    private Long id;
+    private String id;
+
     private NotificationType notificationType;
     private Instant createdAt;
     private OrderConfirmation orderConfirmation;
     private PaymentConfirmation paymentConfirmation;
 }
+

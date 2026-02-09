@@ -1,12 +1,11 @@
 spring:
-  data:
     mongodb:
-      username: manoj
-      password: manoj
-      host: localhost
-      port: 27017
-      database: customer
-      authentication-database: admin
+      uri: mongodb://manoj:manoj@localhost:27017/customer?authSource=admin
 
 server:
   port: 8084
+
+logging:
+  level:
+    org.springframework.data.mongodb.core: DEBUG
+    org.mongodb.driver: DEBUG

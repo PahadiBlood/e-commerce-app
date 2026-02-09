@@ -2,6 +2,7 @@ package xyz.manojraw.ecommerce.notification.kafka.consumer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import xyz.manojraw.ecommerce.notification.email.EmailService;
@@ -24,43 +25,45 @@ public class NotificationConsumer {
     public void consumePaymentSuccessNotification(PaymentConfirmation paymentConfirmation) {
         log.info("Consuming payment notification <{}>", paymentConfirmation);
 
-        notificationRepository.save(
-                Notification.builder()
-                        .notificationType(NotificationType.PAYMENT_CONFIRMATION)
-                        .createdAt(Instant.now())
-                        .paymentConfirmation(paymentConfirmation)
-                        .build()
-        );
+        Notification notification = buildNotification(NotificationType.PAYMENT_CONFIRMATION);
+        notification.setPaymentConfirmation(paymentConfirmation);
+
+        notificationRepository.save(notification);
 
         //sending email
-        String customerName = paymentConfirmation.customerEmail() + " " + paymentConfirmation.customerLastName();
+        String customerName = paymentConfirmation.getCustomerFirstName() + " " + paymentConfirmation.getCustomerLastName();
         emailService.sendPaymentSuccessEmail(
-                paymentConfirmation.customerEmail(),
+                paymentConfirmation.getCustomerEmail(),
                 customerName,
-                paymentConfirmation.amount(),
-                paymentConfirmation.orderReference()
+                paymentConfirmation.getAmount(),
+                paymentConfirmation.getOrderReference()
         );
     }
 
     @KafkaListener(topics = {"order-topic"})
     public void consumeOrderNotification(OrderConfirmation orderConfirmation) {
         log.info("Consuming Order notification <{}>", orderConfirmation);
-        notificationRepository.save(
-                Notification.builder()
-                        .notificationType(NotificationType.ORDER_CONFIRMATION)
-                        .createdAt(Instant.now())
-                        .orderConfirmation(orderConfirmation)
-                        .build()
-        );
+
+        Notification notification = buildNotification(NotificationType.ORDER_CONFIRMATION);
+        notification.setOrderConfirmation(orderConfirmation);
+
+        notificationRepository.save(notification);
 
         //sending email
-        String customerName = orderConfirmation.customer().firstName() + " " + orderConfirmation.customer().lastName();
+        String customerName = orderConfirmation.getCustomer().getFirstName() + " " + orderConfirmation.getCustomer().getLastName();
         emailService.sendOrderSuccessEmail(
-                orderConfirmation.customer().email(),
+                orderConfirmation.getCustomer().getEmail(),
                 customerName,
-                orderConfirmation.amount(),
-                orderConfirmation.orderReference(),
-                orderConfirmation.products()
+                orderConfirmation.getAmount(),
+                orderConfirmation.getOrderReference(),
+                orderConfirmation.getProducts()
         );
+    }
+
+    private static @NonNull Notification buildNotification(NotificationType notificationType) {
+        Notification notification = new Notification();
+        notification.setNotificationType(notificationType);
+        notification.setCreatedAt(Instant.now());
+        return notification;
     }
 }
