@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping
     public ResponseEntity<Page<ProductResponseDto>> getAll(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int size) {

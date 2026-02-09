@@ -3,7 +3,6 @@ package xyz.manojraw.ecommerce.payment.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -14,7 +13,6 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)

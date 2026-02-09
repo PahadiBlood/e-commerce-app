@@ -1,15 +1,23 @@
 package xyz.manojraw.ecommerce.notification.kafka;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import xyz.manojraw.ecommerce.notification.enumeration.PaymentMethod;
 
 import java.math.BigDecimal;
 
-public record PaymentConfirmation(
-        String orderReference,
-        BigDecimal amount,
-        PaymentMethod paymentMethod,
-        String customerFirstName,
-        String customerLastName,
-        String customerEmail
-) {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class PaymentConfirmation {
+
+    private String orderReference;
+    private BigDecimal amount;
+    private PaymentMethod paymentMethod;
+    private String customerFirstName;
+    private String customerLastName;
+    private String customerEmail;
 }
