@@ -30,7 +30,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
-    private Long customerId;
+    private String customerId;
 
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines;

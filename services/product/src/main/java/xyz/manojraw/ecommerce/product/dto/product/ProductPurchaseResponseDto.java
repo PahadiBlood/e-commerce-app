@@ -5,7 +5,7 @@ import xyz.manojraw.ecommerce.product.dto.category.CategoryBasicInfoDto;
 import java.math.BigDecimal;
 
 public record ProductPurchaseResponseDto(
-        Long id,
+        Long productId,
         String name,
         String description,
         int quantity,

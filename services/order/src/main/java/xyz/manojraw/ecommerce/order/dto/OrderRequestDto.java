@@ -17,9 +17,8 @@ public record OrderRequestDto(
         @NotNull(message = "Missing payment method")
         PaymentMethod paymentMethod,
 
-        @Positive(message = "Invalid customer id")
         @NotNull(message = "Missing customer id")
-        Long customerId,
+        String customerId,
 
         @NotEmpty(message = "Purchase at-least one product")
         List<PurchaseRequest> products

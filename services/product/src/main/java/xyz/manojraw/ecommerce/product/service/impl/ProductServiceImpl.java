@@ -97,8 +97,8 @@ public class ProductServiceImpl implements ProductService {
         Map<Long, Integer> productQuantityMap = new HashMap<>();
 
         for (ProductPurchaseRequestDto purchaseRequest : purchaseRequestDto) {
-            productIds.add(purchaseRequest.id());
-            productQuantityMap.put(purchaseRequest.id(), purchaseRequest.quantity());
+            productIds.add(purchaseRequest.productId());
+            productQuantityMap.put(purchaseRequest.productId(), purchaseRequest.quantity());
         }
 
         List<Product> products = productRepository.findAllById(productIds);
